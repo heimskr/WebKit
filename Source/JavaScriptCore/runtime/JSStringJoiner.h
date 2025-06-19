@@ -155,6 +155,10 @@ ALWAYS_INLINE bool JSStringJoiner::appendWithoutSideEffects(JSGlobalObject* glob
             append(jsString, StringViewWithUnderlyingString(view, jsCast<const JSString*>(view.owner)->tryGetValue()));
             return true;
         }
+        if (JSBigInt* jsBigInt = jsDynamicCast<JSBigInt*>(value)) {
+            append8Bit(jsBigInt->toString(globalObject, 10));
+            return true;
+        }
         return false;
     }
 
